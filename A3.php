@@ -43,21 +43,44 @@
 
     <?php
     $zbk3 = 0;
-        do {
-            $zbk3 = $zbk3 + 3;
-            echo "$zbk3 ";
-        } while ($zbk3 < 30);
+    do {
+        $zbk3 = $zbk3 + 3;
+        echo "$zbk3 ";
+    } while ($zbk3 < 30);
     ?>
 
     <hr>
     <h2>Ariketa 3.4</h2>
 
     <?php
-
+    $herrialdeak = array("EH", "Frantzia", "Alemania", "Italia");
+    foreach ($herrialdeak as $herria) {
+        echo $herria . "<br>";
+    }
     ?>
 
     <hr>
     <h2>Ariketa 3.5</h2>
 
+    <?php
+    $kontadorea = 0;
 
+    for ($x = 2; $x <= 100; $x++) {
+        $primoa_da = true;
+
+        for ($y = 2; $y <= sqrt($x); $y++) {
+            if ($x % $y == 0) {
+                $primoa_da = false;
+                break;
+            }
+        }
+
+        if ($primoa_da) {
+            echo "$x ";
+            $kontadorea++;
+        }
+    }
+
+    echo "<br>Kopurua: $kontadorea";
+    ?>
 </body>

@@ -17,7 +17,6 @@
     <h1>Ariketa 8</h1>
     <h2>Ariketa 8.1</h2>
 
-
     <?php
     require_once "klaseak/IkasleaA1.php";
 
@@ -86,9 +85,11 @@
 
     <?php
     require_once "klaseak/Pertsona.php";
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $izena = htmlspecialchars($_POST["izena"]);
-        $abizenak = htmlspecialchars($_POST["abizenak"]);
+    $mezua = "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["zeregina"])) {
+        $izena = htmlspecialchars($_POST["izena"] ?? '');
+        $abizenak = htmlspecialchars($_POST["abizenak"] ?? '');
         $zeregina = $_POST["zeregina"];
 
         if ($zeregina === "ikaslea") {
@@ -103,6 +104,37 @@
     ?>
 
     <h2>Ariketa 8.5</h2>
+    <?php
+    require_once "Interfazeak/Animaliak.php";
+    $mezua = "";
 
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["animalia"])) {
+        $animalia = $_POST["animalia"];
+
+        if ($animalia === "txakurra") {
+            $obj = new Txakurra();
+            $mezua = $obj->esan();
+        } elseif ($animalia === "katua") {
+            $obj = new Katua();
+            $mezua = $obj->esan();
+        }
+    }
+
+    ?>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <select name="animalia">
+            <option value="">-- Aukeratu --</option>
+            <option value="txakurra">Txakurra</option>
+            <option value="katua">Katua</option>
+        </select>
+        <button type="submit">Bidali</button>
+    </form>
+
+    <?php if (!empty($mezua)): ?>
+        <h3>Emaitza: <?php echo $mezua; ?></h3>
+    <?php endif; ?>
+    <?php
+
+    ?>
 
 </body>

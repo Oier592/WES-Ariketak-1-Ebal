@@ -10,11 +10,6 @@ class LiburuKatalogoa
 
     function inprimatuLiburuak()
     {
-        if (empty($this->liburuak)) {
-            echo "Ez dago libururik katalogoan.<br>";
-            return;
-        }
-
         foreach ($this->liburuak as $liburu) {
             echo "$liburu->izena (Egilea: $liburu->egilea) <br>";
         }

@@ -1,5 +1,5 @@
 <?php
-class Ikaslea
+class IkasleaA1
 {
     public $izena;
     public $notak;

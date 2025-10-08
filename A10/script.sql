@@ -1,0 +1,20 @@
+CREATE DATABASE IF NOT EXISTS hackaton;
+USE hackaton;
+
+CREATE TABLE taldea (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  izena VARCHAR(255) NOT NULL,
+  puntuak INT NOT NULL DEFAULT 0
+);
+
+CREATE TABLE partaideak (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  izena VARCHAR(255) NOT NULL,
+  herrialdea VARCHAR(255),
+  taldea_id INT,
+  CONSTRAINT fk_taldea
+    FOREIGN KEY (taldea_id)
+    REFERENCES taldea(id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
+);

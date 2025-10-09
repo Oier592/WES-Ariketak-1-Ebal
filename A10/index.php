@@ -12,14 +12,7 @@ require_once __DIR__ . '/Controller/TaldeaController.php';
         table,
         th,
         td {
-            border: 1px solid #555;
-            border-collapse: collapse;
-            padding: 8px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #ddd;
+            border: 1px solid;
         }
     </style>
 </head>
@@ -62,12 +55,21 @@ require_once __DIR__ . '/Controller/TaldeaController.php';
 
                 <td>
                     <form action="Controller/TaldeaController.php" method="post">
-                        <button type="submit" onclick=>Gogokoena (por hacer)</button>
+                        <input type="hidden" name="accion" value="set_gogokoena">
+                        <input type="hidden" name="id" value="<?= $talde['id'] ?>">
+                        <input type="hidden" name="izena" value="<?= htmlspecialchars($talde['izena']) ?>">
+                        <button type="submit">Gogokoena</button>
                     </form>
+
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
+
+    <?php if (isset($_SESSION['talde_gogokoena'])): ?>
+        <p><strong>Zure talde gogokoena:</strong> <?= htmlspecialchars($_SESSION['talde_gogokoena']) ?></p>
+    <?php endif; ?>
+
 
     <h2>Gehitu taldea</h2>
     <form action="Controller/TaldeaController.php" method="post">

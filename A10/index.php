@@ -1,5 +1,5 @@
 <?php
-require 'Taldea_Controller.php';
+require 'TaldeaController.php';
 ?>
 
 <!DOCTYPE html>
@@ -31,31 +31,32 @@ require 'Taldea_Controller.php';
             <th>ID</th>
             <th>Izena</th>
             <th>Puntuak</th>
-            <th></th>
         </tr>
 
         <?php foreach ($taldeak as $talde): ?>
             <tr>
                 <td><?= htmlspecialchars($talde['id']) ?></td>
                 <td><?= htmlspecialchars($talde['izena']) ?></td>
-                <td><?= htmlspecialchars($talde['puntuak']) ?>
-                    <button type="submit" onclick="">
-                        Aldatu
-                    </button>
-                </td>
                 <td>
-                    <form action="Taldea_Controller.php" method="POST" style="display:inline;">
-                        <input type="hidden" name="accion" value="eliminar">
+                    <form action="TaldeaController.php" method="post">
+                        <input type="number" name="update_puntuak" value="<?= htmlspecialchars($talde['puntuak']) ?>"
+                            style="width:50px;">
                         <input type="hidden" name="id" value="<?= $talde['id'] ?>">
-                        <button type="submit" onclick="">
-                            Ezabatu
-                        </button>
+                        <button type="submit">Aldatu</button>
                     </form>
                 </td>
+                <td>
+                    <form action="TaldeaController.php" method="post">
+                        <input type="hidden" name="id" value="<?= $talde['id'] ?>">
+                        <input type="hidden" name="delete_taldea" value="delete_taldea">
+                        <button type="submit"
+                            onclick=>Ezabatu</button>
+                    </form>
+                </td>
+
             </tr>
         <?php endforeach; ?>
     </table>
-
 </body>
 
 </html>

@@ -67,9 +67,15 @@ require_once __DIR__ . '/Controller/TaldeaController.php';
     </table>
 
     <?php if (isset($_SESSION['talde_gogokoena'])): ?>
-        <p><strong>Zure talde gogokoena:</strong> <?= htmlspecialchars($_SESSION['talde_gogokoena']) ?></p>
+        <?php
+        if (isset($_SESSION['talde_gogokoena'])) {
+            $taldeFav = $taldeaDB->getById($_SESSION['talde_gogokoena']);
+            if ($taldeFav) {
+                echo '<p><strong>Zure talde gogokoena:</strong> ' . htmlspecialchars($taldeFav['izena']) . '</p>';
+            }
+        }
+        ?>
     <?php endif; ?>
-
 
     <h2>Gehitu taldea</h2>
     <form action="Controller/TaldeaController.php" method="post">
@@ -85,7 +91,6 @@ require_once __DIR__ . '/Controller/TaldeaController.php';
             <button type="submit" name="accion" value="insert_taldea">Sortu</button>
         </div>
     </form>
-
 </body>
 
 </html>

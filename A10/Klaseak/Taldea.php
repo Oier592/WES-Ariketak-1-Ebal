@@ -24,4 +24,12 @@ class Taldea
         }
         return $taldea;
     }
+
+    public function getById($id)
+    {
+        $id = $this->db->getKonexioa()->real_escape_string($id);
+        $sql = "SELECT izena FROM taldea WHERE id = '$id' LIMIT 1";
+        $result = $this->db->getKonexioa()->query($sql);
+        return $result->fetch_assoc() ?: null;
+    }
 }

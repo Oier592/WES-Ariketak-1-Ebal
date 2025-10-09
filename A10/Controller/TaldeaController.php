@@ -36,11 +36,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_POST['accion']) && $_POST['accion'] === 'set_gogokoena') {
-        $_SESSION['talde_gogokoena'] = $_POST['izena'] ?? '';
+        $_SESSION['talde_gogokoena'] = $_POST['id'] ?? '';
         echo "<script>
                 window.location.href = '../index.php';
               </script>";
         exit();
+    }
+
+    if (isset($_SESSION['talde_gogokoena'])) {
+        $idFav = $_SESSION['talde_gogokoena'];
+        $taldeFav = $taldeaDB->getById($idFav);
+        if ($taldeFav) {
+
+            if (isset($_SESSION['talde_gogokoena'])) {
+                $taldeFav = $taldeaDB->getById($_SESSION['talde_gogokoena']);
+                if ($taldeFav) {
+                    echo '<p>Zure talde gogokoena: ' . htmlspecialchars($taldeFav['izena']) . '</p>';
+                }
+            }
+        }
     }
 }
 

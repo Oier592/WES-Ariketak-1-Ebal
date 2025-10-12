@@ -1,22 +1,38 @@
 <?php
-require_once __DIR__ . '/../Controller/PartaideakController.php';
-?>
+class Partaideak
+{
+    private $db;
 
-<!DOCTYPE html>
-<html lang="eu">
-<head>
-    <meta charset="UTF-8">
-    <title><?= htmlspecialchars($izena) ?> - Partaideak</title>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid;
+    // Datu basean ezer egin baino lehen, konecioa lortu behar da.
+    public function __construct($db)
+    {
+        $this->db = $db;
+    }
+
+    // Talde baten partaide guztiak lortzeko erabiliko den kontsulta.
+    public function getAll($talde_id)
+    {
+        $emaitza = $this->db->getKonexioa()->query("SELECT * FROM partaideak where taldea_id = $talde_id");
+        if (!$emaitza) {
+            echo 'ERROREA: Ezin izan dira partaideak eskuratu.';
+            die();
         }
-    </style>
-</head>
-<body>
-    <h2><?= htmlspecialchars($izena) ?> - Partaideak</h2>
 
-</body>
-</html>
+        $partaideak = [];
+        if ($emaitza->num_rows > 0) {
+            while ($row = $emaitza->fetch_assoc()) {
+                $partaideak[] = $row;
+            }
+        }
+        return $partaideak;
+    }
+
+    // Partaide konkretu bat lortzeko erabiliko den kontsulta.
+    public function getById($id)
+    {
+        $id = $this->db->getKonexioa()->real_escape_string($id);
+        $sql = "SELECT izena FROM partaideak WHERE id = '$id' LIMIT 1";
+        $result = $this->db->getKonexioa()->query($sql);
+        return $result->fetch_assoc() ?: null;
+    }
+}

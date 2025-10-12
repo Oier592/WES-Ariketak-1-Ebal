@@ -3,11 +3,13 @@ class Taldea
 {
     private $db;
 
+    // Datu basean ezer egin baino lehen, konecioa lortu behar da.
     public function __construct($db)
     {
         $this->db = $db;
     }
 
+    // Talde guztiak bistaratzeko, talde guztiak lortu behar dira.
     public function getAll()
     {
         $emaitza = $this->db->getKonexioa()->query("SELECT * FROM taldea");
@@ -25,6 +27,7 @@ class Taldea
         return $taldea;
     }
 
+    // Talde konkretu bat lortzeko erabiliko den kontzulta.
     public function getById($id)
     {
         $id = $this->db->getKonexioa()->real_escape_string($id);

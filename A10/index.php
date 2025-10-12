@@ -26,16 +26,18 @@ require_once __DIR__ . '/Controller/TaldeaController.php';
             <th>Puntuak</th>
         </tr>
 
+        <!-- Talde guztien informazioa bistaratuko da.-->
         <?php foreach ($taldeak as $talde): ?>
             <tr>
                 <td><?= htmlspecialchars($talde['id']) ?></td>
                 <td>
-                    <a href="Klaseak/Partaideak.php?id=<?= $talde['id'] ?>">
+                    <a href="Partaideak_Orria.php?id=<?= $talde['id'] ?>">
                         <?= htmlspecialchars($talde['izena']) ?>
                     </a>
 
                 </td>
                 <td>
+                    <!-- Talde bakoitzak, puntuazioaren alboan puntuazio hau eguneratuko duen botoia izango du. -->
                     <form action="Controller/TaldeaController.php" method="post">
 
                         <input type="number" name="update_puntuak" value="<?= htmlspecialchars($talde['puntuak']) ?>"
@@ -46,6 +48,7 @@ require_once __DIR__ . '/Controller/TaldeaController.php';
 
                 </td>
                 <td>
+                    <!-- Talde bat ezabatzeko botoia. -->
                     <form action="Controller/TaldeaController.php" method="post">
                         <input type="hidden" name="id" value="<?= $talde['id'] ?>">
                         <input type="hidden" name="delete_taldea" value="delete_taldea">
@@ -54,18 +57,19 @@ require_once __DIR__ . '/Controller/TaldeaController.php';
                 </td>
 
                 <td>
+                    <!-- Taldearen id-a cookian gordetzeko botoia. -->
                     <form action="Controller/TaldeaController.php" method="post">
                         <input type="hidden" name="accion" value="set_gogokoena">
                         <input type="hidden" name="id" value="<?= $talde['id'] ?>">
                         <input type="hidden" name="izena" value="<?= htmlspecialchars($talde['izena']) ?>">
                         <button type="submit">Gogokoena</button>
                     </form>
-
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
 
+    <!-- Taldearen gogokoenaren id-tik (cookian dagoena) izena bistaratzeko egin behar den kontsulta. -->
     <?php if (isset($_SESSION['talde_gogokoena'])): ?>
         <?php
         if (isset($_SESSION['talde_gogokoena'])) {
@@ -77,6 +81,7 @@ require_once __DIR__ . '/Controller/TaldeaController.php';
         ?>
     <?php endif; ?>
 
+    <!-- Talde berri bat gehitzeko beharrezkoak diren formulario eta botoia. -->
     <h2>Gehitu taldea</h2>
     <form action="Controller/TaldeaController.php" method="post">
         <div>

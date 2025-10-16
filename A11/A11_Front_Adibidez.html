@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Fetch adibidea</title>
+</head>
+
+<body>
+
+    <!-- GET: Taldeak -->
+    <button id="datuakBistaratu">GET Taldeak</button>
+    <p></p>
+
+    <!-- GET Taldeak ID -->
+    <input type="number" id="getIdInput" placeholder="Get Taldeak ID" />
+    <button id="getByIdBtn">Get Taldeak ID</button>
+    <p></p>
+
+    <!-- POST: Crear equipo -->
+    <input type="text" id="postIzena" placeholder="Izena" />
+    <input type="number" id="postPuntuak" placeholder="Puntuak" />
+    <button id="crearEquipoBtn">POST taldea</button>
+    <p></p>
+
+    <!-- PUT: Actualizar puntos -->
+    <input type="number" id="putId" placeholder="ID" />
+    <input type="number" id="putPuntuak" placeholder="Update puntuak" />
+    <button id="actualizarPuntosBtn">PUT puntuak</button>
+    <p></p>
+
+    <!-- DELETE: Borrar equipo -->
+    <input type="number" id="deleteId" placeholder="ID" />
+    <button id="borrarEquipoBtn">DELETE taldea</button>
+    <p></p>
+
+    <div id="emaitza">
+    </div>
+
+    <script>
+        const url = 'taldeak-api.php';
+        const emaitzaDiv = document.getElementById('emaitza');
+
+        // --- GET todos ---
+        function eskuratuDatuak() {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error('Errore bat gertatu da.');
+                    return response.json();
+                })
+                .then(data => {
+                    emaitzaDiv.innerHTML = '';
+                    data.forEach(registro => {
+                        const p = document.createElement('p');
+                        p.textContent = `ID: ${registro.id}, Izena: ${registro.izena}, Puntuak: ${registro.puntuak}`;
+                        emaitzaDiv.appendChild(p);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // --- GET por ID ---
+        function getById() {
+            const id = document.getElementById('getIdInput').value;
+            if (!id) return alert('Introduce un ID');
+
+            fetch(`${url}?id=${id}`)
+                .then(res => res.json())
+                .then(data => {
+                    emaitzaDiv.innerHTML = '';
+
+                    // Mostrar datos del equipo
+                    const equipo = document.createElement('p');
+                    equipo.textContent = `ID: ${data.id}, Izena: ${data.izena}, Puntuak: ${data.puntuak}`;
+                    emaitzaDiv.appendChild(equipo);
+
+                    // Mostrar participantes
+                    if (data.partaideak && data.partaideak.length > 0) {
+                        const lista = document.createElement('ul');
+                        data.partaideak.forEach(p => {
+                            const li = document.createElement('li');
+                            li.textContent = `ID: ${p.id}, Izena: ${p.izena}, Herrialdea: ${p.herrialdea}`;
+                            lista.appendChild(li);
+                        });
+                        emaitzaDiv.appendChild(lista);
+                    } else {
+                        const mensaje = document.createElement('p');
+                        mensaje.textContent = 'Ez dago partaiderik';
+                        emaitzaDiv.appendChild(mensaje);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+
+        // --- POST: Crear equipo ---
+        function crearEquipo() {
+            const izena = document.getElementById('postIzena').value;
+            const puntuak = parseInt(document.getElementById('postPuntuak').value);
+            if (!izena || !puntuak) return alert('Introduce nombre y puntos');
+
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ izena, puntuak })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    emaitzaDiv.innerHTML = JSON.stringify(data, null, 2);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // --- PUT: Actualizar puntos ---
+        function actualizarPuntos() {
+            const id = parseInt(document.getElementById('putId').value);
+            const puntuak = parseInt(document.getElementById('putPuntuak').value);
+            if (!id || !puntuak) return alert('Introduce ID y nuevos puntos');
+
+            fetch(url, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, puntuak })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    emaitzaDiv.innerHTML = JSON.stringify(data, null, 2);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // --- DELETE ---
+        function borrarEquipo() {
+            const id = parseInt(document.getElementById('deleteId').value);
+            if (!id) return alert('Introduce ID');
+
+            fetch(`${url}?id=${id}`, { method: 'DELETE' })
+                .then(res => res.json())
+                .then(data => {
+                    emaitzaDiv.innerHTML = JSON.stringify(data, null, 2);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // --- Asignar eventos a botones ---
+        document.getElementById('datuakBistaratu').addEventListener('click', eskuratuDatuak);
+        document.getElementById('getByIdBtn').addEventListener('click', getById);
+        document.getElementById('crearEquipoBtn').addEventListener('click', crearEquipo);
+        document.getElementById('actualizarPuntosBtn').addEventListener('click', actualizarPuntos);
+        document.getElementById('borrarEquipoBtn').addEventListener('click', borrarEquipo);
+    </script>
+
+</body>
+
+</html>

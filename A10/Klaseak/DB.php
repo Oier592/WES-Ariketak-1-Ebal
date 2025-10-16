@@ -1,4 +1,8 @@
 <?php
+
+// Datu basera konektatzeko erabiliko den klasea.
+// Klase hau objektuak erabiliko dute gero objektu hauen kontroladoreek datu basean CRUD eragiketak egin ahal izateko.
+
 class DB
 {
     private $konexioa;
@@ -6,11 +10,13 @@ class DB
     private $host;
     private $pass;
     private $db;
+
+    // Atributu hauek datu basera konektatzeko behar diren kredentzialak dira.
     public function __construct()
     {
         $this->user = "root";
         $this->host = "localhost";
-        $this->pass = "";
+        $this->pass = "Huevo.";
         $this->db = "hackaton";
     }
 
@@ -25,6 +31,7 @@ class DB
         }
     }
 
+    // Konexioa lortu eta jarraian, beste klaseek erabiliko dute.
     public function getKonexioa()
     {
         return $this->konexioa;

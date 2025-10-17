@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "f154cfc1-44b6-43c2-84af-fccabb40192c",
+		"name": "PHP: Ariketa 11",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40925810"
+	},
+	"item": [
+		{
+			"name": "Taldeak Guztiak",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/Ariketak/WES-Ariketak-1-Ebal/A11/taldeak-api.php?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Ariketak",
+						"WES-Ariketak-1-Ebal",
+						"A11",
+						"taldeak-api.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Taldeak ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/Ariketak/WES-Ariketak-1-Ebal/A11/taldeak-api.php?id=16",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Ariketak",
+						"WES-Ariketak-1-Ebal",
+						"A11",
+						"taldeak-api.php"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "16"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Taldea",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"izena\": \"Athletic\",\r\n  \"puntuak\": 34\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/Ariketak/WES-Ariketak-1-Ebal/A11/taldeak-api.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Ariketak",
+						"WES-Ariketak-1-Ebal",
+						"A11",
+						"taldeak-api.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Taldea",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 16,\r\n  \"puntuak\": 1\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/Ariketak/WES-Ariketak-1-Ebal/A11/taldeak-api.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Ariketak",
+						"WES-Ariketak-1-Ebal",
+						"A11",
+						"taldeak-api.php"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "id",
+							"value": "15",
+							"disabled": true
+						},
+						{
+							"key": "puntuak",
+							"value": "23",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Taldea",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/Ariketak/WES-Ariketak-1-Ebal/A11/taldeak-api.php?id=20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Ariketak",
+						"WES-Ariketak-1-Ebal",
+						"A11",
+						"taldeak-api.php"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
